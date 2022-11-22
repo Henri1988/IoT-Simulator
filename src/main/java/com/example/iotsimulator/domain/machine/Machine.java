@@ -1,4 +1,4 @@
-package com.example.iotsimulator.domain;
+package com.example.iotsimulator.domain.machine;
 
 import lombok.Data;
 

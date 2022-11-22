@@ -1,10 +1,10 @@
-package com.example.iotsimulator.domain;
+package com.example.iotsimulator.domain.sensorconnection;
 
+import com.example.iotsimulator.domain.device.Device;
+import com.example.iotsimulator.domain.machine.Machine;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Data
