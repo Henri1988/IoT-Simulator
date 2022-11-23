@@ -10,11 +10,10 @@ import java.time.Instant;
  */
 @Data
 public class SensorConnectionDto implements Serializable {
-    private Integer id;
-    private String name;
-    private Integer deviceId;
-    private String deviceName;
-    private Integer machineId;
-    private String machineName;
-    private Instant connectionStartTime;
+    private  Integer id;
+    private  String name;
+    private  Integer deviceId;
+    private  Integer machineId;
+    private  Instant connectionStartTime;
+    private  Object timeInterval;
 }

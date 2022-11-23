@@ -34,6 +34,12 @@ public class SensorConnection {
     @Column(name = "connection_start_time", nullable = false)
     private Instant connectionStartTime;
 
+    @Column(name = "time_interval", columnDefinition = "interval(49, 6) not null")
+    private Object timeInterval;
+
+
+
+
 
 /*
     TODO [JPA Buddy] create field to map the 'time_interval' column
