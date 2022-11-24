@@ -7,6 +7,7 @@ import com.example.iotsimulator.dtos.ConnectionStartResponse;
 import com.example.iotsimulator.dtos.MetricsRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -20,6 +21,9 @@ public class ConnectionService {
 
     @Resource
     private ControlPanelProperties controlPanelProperties;
+
+    @Resource
+    private RestTemplate restTemplate;
 
     public ConnectionStartResponse startConnection(ConnectionStartRequest req) {
         String url = String.format("%s/connection/create/%s/%s",
@@ -42,20 +46,19 @@ public class ConnectionService {
                 Random random = new Random();
                 Integer value = random.nextInt();
                 MetricsRequest metricsRequest = new MetricsRequest(value);
-
-//                String url = String.format("%s/%s/%s", controlPanelProperties.getControllerPath(), connectionId, controlPanelProperties.getMetricsPath());
-//                sendPost(url, metricsRequest);
+                String url = String.format("%s/connection/%s/metrics",
+                        controlPanelProperties.getControllerPath(),
+                        resp.getId());
+                sendPost(url, metricsRequest);
             }
         };
         timer.scheduleAtFixedRate(task, 10, req.getIntervalMs());
-        tasks.put(connectionId, timer);
-
-        // TODO: start timer (copy paste from his service.sendMetrics)
-//        req.getIntervalMs()
+        tasks.put(resp.getId(), timer);
     }
 
-
-
-
+    private ConnectionStartResponse sendPost(String url, ConnectionStartRequest body) {
+        return restTemplate.postForObject(url, body, ConnectionStartResponse.class);
+    }
+    //TODO: Remove sendPost method and use directly line 61
 
 }
