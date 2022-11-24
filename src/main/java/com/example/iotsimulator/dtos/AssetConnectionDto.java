@@ -14,6 +14,7 @@ import java.time.Instant;
 @Data
 @NoArgsConstructor
 public class AssetConnectionDto implements Serializable {
+
     private Integer id;
     private Integer sourceAssetId;
     @Size(max = 255)
