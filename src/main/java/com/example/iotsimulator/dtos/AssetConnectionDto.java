@@ -1,5 +1,6 @@
 package com.example.iotsimulator.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,9 @@ import java.time.Instant;
  */
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AssetConnectionDto implements Serializable {
+
 
     private Integer id;
     private Integer sourceAssetId;

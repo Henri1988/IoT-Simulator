@@ -32,13 +32,15 @@ public class ConnectionService {
                 req.getTargetAssetId());
         System.out.println(url);
 
-        var resp = applicationConfigs.getRestTemplate().postForObject(url, null, AssetConnectionDto.class);
+        var resp = applicationConfigs.getRestTemplate().postForObject
+                (url, null, AssetConnectionDto.class);
 
         this.setupMetricsTimer(req, resp);
+        assert resp != null;
         return new ConnectionStartResponse(resp.getId());
     }
 
-    private void setupMetricsTimer(ConnectionStartRequest req, AssetConnectionDto resp) {
+    public void setupMetricsTimer(ConnectionStartRequest req, AssetConnectionDto resp) {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -46,9 +48,11 @@ public class ConnectionService {
                 Random random = new Random();
                 Integer value = random.nextInt();
                 MetricsRequest metricsRequest = new MetricsRequest(value);
-                String url = String.format("%s/connection/%s/metrics",
+                String url = String.format(
+                        "%s/connection/%s/metrics",
                         controlPanelProperties.getControllerPath(),
-                        resp.getId());
+                        resp.getId()
+                );
                 sendPost(url, metricsRequest);
             }
         };
