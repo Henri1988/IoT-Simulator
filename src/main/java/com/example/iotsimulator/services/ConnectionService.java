@@ -35,8 +35,7 @@ public class ConnectionService {
         var resp = applicationConfigs.getRestTemplate().postForObject
                 (url, req, AssetConnectionDto.class);
 
-        //this.setupMetricsTimer(req, resp);
-        assert resp != null;
+        this.setupMetricsTimer(req, resp);
         return new ConnectionStartResponse(resp.getId());
     }
 
