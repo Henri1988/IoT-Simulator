@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalTime;
 
 /**
  * A DTO for the {@link AssetConnection} entity
@@ -34,7 +35,7 @@ public class AssetConnectionDto implements Serializable {
     @NotNull
     private String targetAssetRole;
     @NotNull
-    private Instant createdAt;
+    private LocalTime createdAt;
     @NotNull
     private Integer intervalMs;
 }

@@ -33,7 +33,7 @@ public class ConnectionService {
         System.out.println(url);
 
         var resp = applicationConfigs.getRestTemplate().postForObject
-                (url, null, AssetConnectionDto.class);
+                (url, req, AssetConnectionDto.class);
 
         this.setupMetricsTimer(req, resp);
         assert resp != null;
@@ -59,6 +59,8 @@ public class ConnectionService {
         timer.scheduleAtFixedRate(task, 10, req.getIntervalMs());
         tasks.put(resp.getId(), timer);
     }
+
+
 
     private ConnectionStartResponse sendPost(String url, ConnectionStartRequest body) {
         return restTemplate.postForObject(url, body, ConnectionStartResponse.class);
