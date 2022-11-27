@@ -35,7 +35,7 @@ public class ConnectionService {
         var resp = applicationConfigs.getRestTemplate().postForObject
                 (url, req, AssetConnectionDto.class);
 
-        this.setupMetricsTimer(req, resp);
+        //this.setupMetricsTimer(req, resp);
         assert resp != null;
         return new ConnectionStartResponse(resp.getId());
     }
@@ -59,8 +59,6 @@ public class ConnectionService {
         timer.scheduleAtFixedRate(task, 10, req.getIntervalMs());
         tasks.put(resp.getId(), timer);
     }
-
-
 
     private ConnectionStartResponse sendPost(String url, ConnectionStartRequest body) {
         return restTemplate.postForObject(url, body, ConnectionStartResponse.class);

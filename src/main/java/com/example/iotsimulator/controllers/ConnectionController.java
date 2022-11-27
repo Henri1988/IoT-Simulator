@@ -23,6 +23,12 @@ public class ConnectionController {
         return ResponseEntity.ok().body(connectionService.startConnection(req));
     }
 
+    @PostMapping("/sendmetrics/")
+    public ResponseEntity<?> setupAndSendMetrics(@RequestBody ConnectionStartRequest req, @RequestBody AssetConnectionDto resp) {
+        connectionService.setupMetricsTimer(req, resp);
+        return ResponseEntity.ok().build();
+    }
+
     /*
     Alternative?
 
@@ -33,10 +39,6 @@ public class ConnectionController {
     }*/
 
 
-    @PostMapping("/sendmetrics/")
-    public ResponseEntity<?> setupAndSendMetrics(@RequestBody ConnectionStartRequest req, @RequestBody AssetConnectionDto resp) {
-        connectionService.setupMetricsTimer(req, resp);
-        return ResponseEntity.ok().build();
-    }
+
 
 }
