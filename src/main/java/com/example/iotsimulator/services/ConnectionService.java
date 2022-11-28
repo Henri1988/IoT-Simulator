@@ -1,10 +1,7 @@
 package com.example.iotsimulator.services;
 import com.example.iotsimulator.configs.ApplicationConfigs;
 import com.example.iotsimulator.configs.ControlPanelProperties;
-import com.example.iotsimulator.dtos.AssetConnectionDto;
-import com.example.iotsimulator.dtos.ConnectionStartRequest;
-import com.example.iotsimulator.dtos.ConnectionStartResponse;
-import com.example.iotsimulator.dtos.MetricsRequest;
+import com.example.iotsimulator.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -45,23 +42,20 @@ public class ConnectionService {
             @Override
             public void run() {
                 Random random = new Random();
-                Integer value = random.nextInt();
-                MetricsRequest metricsRequest = new MetricsRequest(value);
+                Integer value = random.nextInt(100)+1;
+                AssetMetricDto assetMetricDto  = new AssetMetricDto();
+                assetMetricDto.setValue(value);
                 String url = String.format(
                         "%s/connection/%s/metrics",
                         controlPanelProperties.getControllerPath(),
                         resp.getId()
                 );
-                sendPost(url, metricsRequest);
+               var response =  restTemplate.postForObject(url, assetMetricDto, AssetMetricDto.class);
+                System.out.println(response);
             }
         };
-        timer.scheduleAtFixedRate(task, 10, req.getIntervalMs());
+        timer.scheduleAtFixedRate(task, 0, req.getIntervalMs());
         tasks.put(resp.getId(), timer);
     }
-
-    private ConnectionStartResponse sendPost(String url, ConnectionStartRequest body) {
-        return restTemplate.postForObject(url, body, ConnectionStartResponse.class);
-    }
-    //TODO: Remove sendPost method and use directly line 61
 
 }

@@ -23,20 +23,8 @@ public class ConnectionController {
         return ResponseEntity.ok().body(connectionService.startConnection(req));
     }
 
-    @PostMapping("/sendmetrics/")
-    public ResponseEntity<?> setupAndSendMetrics(@RequestBody ConnectionStartRequest req, @RequestBody AssetConnectionDto resp) {
-        connectionService.setupMetricsTimer(req, resp);
-        return ResponseEntity.ok().build();
-    }
 
-    /*
-    Alternative?
 
-    @PostMapping("/start")
-    @Operation(summary = "Starts connection")
-    public ConnectionStartResponse startConnection(@RequestBody ConnectionStartRequest req) {
-        return connectionService.startConnection(req);
-    }*/
 
 
 
